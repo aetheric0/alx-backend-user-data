@@ -28,4 +28,6 @@ def stats() -> str:
 
 @app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def blocked_access() -> str:
+    """ Aborts the request and sends message
+    """
     return abort(401)
