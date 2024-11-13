@@ -31,3 +31,10 @@ def blocked_access() -> str:
     """ Aborts the request and sends message
     """
     return abort(401)
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden_access() -> str:
+    """ Aborts the request and sends message
+    """
+    return abort(403)
