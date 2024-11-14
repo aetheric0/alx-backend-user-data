@@ -9,7 +9,8 @@ class BasicAuth(Auth):
     """ Defines the BasicAuth Class
     """
     def extract_base64_authorization_header(
-                                            self, authorization_header: str
+                                            self,
+                                            authorization_header: str
                                             ) -> str:
         """ Extracts the token from the authorization header
         """
@@ -33,3 +34,16 @@ class BasicAuth(Auth):
             return decoded_bytes.decode('utf-8')
         except Exception:
             return None
+
+    def extract_user_credentials(
+                                  self,
+                                  decoded_base64_authorization_header: str
+                                  ) -> (str, str):
+        """ Extracts user credentials from authorization token
+        """
+        if (decoded_base64_authorization_header is None
+                or not isinstance(decoded_base64_authorization_header, str)
+                or ':' not in decoded_base64_authorization_header):
+            return (None, None)
+        username, password = decoded_base64_authorization_header.split(':')
+        return (username, password)
