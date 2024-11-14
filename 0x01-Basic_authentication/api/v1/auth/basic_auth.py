@@ -54,6 +54,8 @@ class BasicAuth(Auth):
                                      self,
                                      user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
+        """ Validates the credentials from request against database
+        """
         if (user_email is None or not isinstance(user_email, str)
                 or user_pwd is None or not isinstance(user_pwd, str)):
             return None
