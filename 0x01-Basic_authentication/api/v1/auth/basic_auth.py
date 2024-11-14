@@ -3,6 +3,7 @@
 """
 from .auth import Auth
 import base64
+from flask import request
 from models.user import User
 from typing import TypeVar
 
@@ -68,3 +69,15 @@ class BasicAuth(Auth):
         if not db_user.is_valid_password(user_pwd):
             return None
         return db_user
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ Implements all methods to validate user from HTTP request
+        """
+        auth_value = self.authorization_header(request)
+        if auth_value:
+            auth_token = self.extract_base64_authorization_header(auth_value)
+            decoded_token = self.decode_base64_authorization_header(auth_token)
+            email, password = self.extract_user_credentials(decoded_token)
+            return self.user_object_from_credentials(email, password)
+        else:
+            return None
