@@ -15,16 +15,14 @@ class Auth:
             return True
         if path[-1] != '/':
             path = path + '/'
-        if path not in excluded_paths:
-            return True
-        if path in excluded_paths and path == '/api/v1/status/':
-            return False
-        return False
+        return path not in excluded_paths
 
     def authorization_header(self, request=None) -> str:
         """ Checks for authorization header in request
         """
-        return None
+        if request is None or 'Authorization' not in request.headers:
+            return None
+        return request.headers['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ Checks the current user
