@@ -19,9 +19,12 @@ if auth:
     if auth == 'auth':
         from api.v1.auth.auth import Auth
         auth = Auth()
-    else:
+    if auth == 'basic_auth':
         from api.v1.auth.basic_auth import BasicAuth
         auth = BasicAuth()
+    else:
+        from api.v1.auth.session_auth import SessionAuth
+        auth = SessionAuth()
 
 
 @app.before_request
@@ -29,11 +32,12 @@ def pre_request():
     """ Pre request handler
     """
     path_list = ['/api/v1/status/', '/api/v1/unauthorized/',
-                 '/api/v1/forbidden/']
+                 '/api/v1/forbidden/', '/api/v1/auth_session/login/']
     if auth is None:
         return
     if auth.require_auth(request.path, path_list):
-        if auth.authorization_header(request) is None:
+        if (auth.authorization_header(request) is None
+                and auth.session_cookie(request) is None):
             return abort(401)
         current_user = auth.current_user(request)
         if current_user is None:
