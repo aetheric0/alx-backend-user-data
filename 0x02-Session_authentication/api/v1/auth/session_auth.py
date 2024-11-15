@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ The Session Authentication Class for Session authentication
 """
-from api.v1.auth.auth import Auth
+from .auth import Auth
 from os import getenv
 import uuid
 
