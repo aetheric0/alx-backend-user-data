@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+""" The Session Authentication Class
+"""
 from .auth import Auth
 from os import getenv
 import uuid
