@@ -29,7 +29,7 @@ if auth:
 
 @app.before_request
 def pre_request():
-    """ Pre request handler
+    """ Pre request handler for incoming requests
     """
     path_list = ['/api/v1/status/', '/api/v1/unauthorized/',
                  '/api/v1/forbidden/', '/api/v1/auth_session/login/']
@@ -48,21 +48,21 @@ def pre_request():
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """ Not found handler for page not found
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """ Unauthorized handler
+    """ Handler for unauthorized requests
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """ Forbidden request
+    """ Handler for Forbidden requests
     """
     return jsonify({"error": "Forbidden"}), 403
 
