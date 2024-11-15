@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" The Session Authentication Class
+""" The Session Authentication Class for Session authentication
 """
 from .auth import Auth
 from os import getenv
@@ -7,7 +7,7 @@ import uuid
 
 
 class SessionAuth(Auth):
-    """ Defines the SessionAuth class
+    """ Defines the SessionAuth class for session authentication
     """
     user_id_by_session_id = {}
 
@@ -28,7 +28,7 @@ class SessionAuth(Auth):
         return self.user_id_by_session_id.get(session_id)
 
     def destroy_session(self, request=None):
-        """ Deletes current session
+        """ Destroys the current session by the session_id
         """
         if request is None or not self.session_cookie(request):
             return False
